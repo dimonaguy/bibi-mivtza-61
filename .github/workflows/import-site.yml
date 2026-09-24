@@ -1,0 +1,42 @@
+name: Import full site tarball
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-site.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Download and extract site tarball
+        env:
+          TARBALL_URL: https://prepaid-zealand-backed-fans.trycloudflare.com/bibi-pages-deploy.tgz
+        run: |
+          set -euo pipefail
+          curl -fsSL "$TARBALL_URL" -o /tmp/site.tgz
+          mkdir -p /tmp/site-extract
+          tar xzf /tmp/site.tgz -C /tmp/site-extract
+          cp -a /tmp/site-extract/. .
+          mkdir -p .github/workflows
+          ls -la
+          test -f index.html
+          test -f app.js
+          test -f assets-data-0p0.js
+          wc -c assets-data-0.js assets-data-0p0.js index.html
+      - name: Commit imported site
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Import interactive story site from deploy tarball"
+            git push origin HEAD:main
+          fi
