@@ -79,11 +79,34 @@
       color: #60a5fa;
       margin: 0;
     }
+    .credits-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      max-width: min(100%, 22rem);
+      flex-shrink: 1;
+      min-width: 0;
+    }
     .creator-credit {
       font-size: 1rem;
       color: #94a3b8;
       font-weight: bold;
       letter-spacing: 0.5px;
+    }
+    .contact-email {
+      direction: ltr;
+      unicode-bidi: isolate;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      line-height: 1.25;
+    }
+    .contact-email:hover,
+    .contact-email:focus {
+      color: #cbd5e1;
+      text-decoration: underline;
+      outline: none;
     }
     #node-desc {
       font-size: 1.15rem;
@@ -298,6 +321,7 @@
       #node-title { font-size: 1.25rem; }
       #node-desc { font-size: 0.98rem; }
       .creator-credit { font-size: 0.85rem; }
+      .credits-block { max-width: 100%; align-items: flex-start; }
       #protagonist { height: 28%; }
       .choice-text {
         font-size: clamp(0.68rem, 2.4vw, 0.95rem);
@@ -385,4 +409,3 @@
       cursor: pointer;
     }
     #music-hint:hover { background: #1d4ed8; }
-  
