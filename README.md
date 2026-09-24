@@ -1,7 +1,11 @@
-# ביבי: מבצע 61
+# ביבי - מבצע 61 / Bibi – Mivtza 61
 
-Hebrew choose-your-own-adventure static game.
+Interactive CYOA (Choose Your Own Adventure) game.
 
-Open `index.html` locally or via GitHub Pages.
+**Permanent URL (GitHub Pages):** https://dimonaguy.github.io/bibi-mivtza-61/
 
-Created by Netanel Hasson. Site packaging by Grok Bot.
+## Enable Pages (one-time)
+
+If the URL returns 404, open the repo → **Settings → Pages → Source: GitHub Actions**, then re-run the **Deploy GitHub Pages** workflow (or push any commit).
+
+Static site from repo root on branch `main`. Assets are embedded in `assets-data-*.js` (images + background music).
