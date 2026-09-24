@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ביבי: מבצע 61</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio id="bg-music" loop preload="auto" playsinline webkit-playsinline></audio>
+
+  <div id="game-container">
+    <div id="status-bar">
+      <div class="stat-box">
+        <span class="stat-label">מנדטים</span>
+        <span class="stat-value" id="stat-mandates">—</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">יחסי ארה"ב</span>
+        <span class="stat-value" id="stat-us">—</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">יציבות ליכוד</span>
+        <span class="stat-value" id="stat-likud">—</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">יציבות קואליציה</span>
+        <span class="stat-value" id="stat-coalition">—</span>
+      </div>
+    </div>
+
+    <div id="story-bar">
+      <div class="title-row">
+        <h2 id="node-title">טוען...</h2>
+        <span class="creator-credit" id="creator-credit"></span>
+      </div>
+      <div id="node-desc"></div>
+    </div>
+
+    <div id="stage-wrapper">
+      <div id="stage-bg"></div>
+      <img id="protagonist" alt="ביבי">
+      <div id="overlay-container"></div>
+    </div>
+    <div id="mobile-choices" aria-label="אפשרויות"></div>
+    <button type="button" id="music-hint" aria-label="הפעל מוזיקה">♪ לחץ להפעלת מוזיקה</button>
+    <div id="load-error"></div>
+  </div>
+
+  <script src="assets-data-0p0.js"></script>
+  <script src="assets-data-0p1.js"></script>
+  <script src="assets-data-0p2.js"></script>
+  <script src="assets-data-0p3.js"></script>
+  <script src="assets-data-0p4.js"></script>
+  <script src="assets-data-0p5.js"></script>
+  <script src="assets-data-0p6.js"></script>
+  <script src="assets-data-0p7.js"></script>
+  <script src="assets-data-0p8.js"></script>
+  <script src="assets-data-0p9.js"></script>
+  <script src="assets-data-0p10.js"></script>
+  <script src="assets-data-0p11.js"></script>
+  <script src="assets-data-0p12.js"></script>
+  <script src="assets-data-0p13.js"></script>
+  <script src="assets-data-0p14.js"></script>
+  <script src="assets-data-0p15.js"></script>
+  <script src="assets-data-0p16.js"></script>
+  <script src="assets-data-0p17.js"></script>
+  <script src="assets-data-0p18.js"></script>
+  <script src="assets-data-0p19.js"></script>
+  <script src="assets-data-0p20.js"></script>
+  <script src="assets-data-0p21.js"></script>
+  <script src="assets-data-0p22.js"></script>
+  <script src="assets-data-0p23.js"></script>
+  <script src="assets-data-0p24.js"></script>
+  <script src="assets-data-0p25.js"></script>
+  <script src="assets-data-0p26.js"></script>
+  <script src="assets-data-0p27.js"></script>
+  <script src="assets-data-0p28.js"></script>
+  <script src="assets-data-0p29.js"></script>
+  <script src="assets-data-0p30.js"></script>
+  <script src="assets-data-0p31.js"></script>
+  <script src="assets-data-0p32.js"></script>
+  <script src="assets-data-0p33.js"></script>
+  <script src="assets-data-0p34.js"></script>
+  <script src="assets-data-0p35.js"></script>
+  <script src="assets-data-0p36.js"></script>
+  <script src="assets-data-0p37.js"></script>
+  <script src="assets-data-0p38.js"></script>
+  <script src="assets-data-0p39.js"></script>
+  <script src="assets-data-0p40.js"></script>
+  <script src="assets-data-0p41.js"></script>
+  <script src="assets-data-0p42.js"></script>
+  <script src="assets-data-0p43.js"></script>
+  <script src="assets-data-0p44.js"></script>
+  <script src="assets-data-0p45.js"></script>
+  <script src="assets-data-0p46.js"></script>
+  <script src="assets-data-0p47.js"></script>
+  <script src="assets-data-0p48.js"></script>
+  <script src="assets-data-0p49.js"></script>
+  <script src="assets-data-0p50.js"></script>
+  <script src="assets-data-0p51.js"></script>
+  <script src="assets-data-0p52.js"></script>
+  <script src="assets-data-0p53.js"></script>
+  <script src="assets-data-0p54.js"></script>
+  <script src="assets-data-0p55.js"></script>
+  <script src="assets-data-0p56.js"></script>
+  <script src="assets-data-0p57.js"></script>
+  <script src="assets-data-0p58.js"></script>
+  <script src="assets-data-0p59.js"></script>
+  <script src="assets-data-0.js"></script>
+  <script src="assets-data-1p0.js"></script>
+  <script src="assets-data-1p1.js"></script>
+  <script src="assets-data-1p2.js"></script>
+  <script src="assets-data-1p3.js"></script>
+  <script src="assets-data-1p4.js"></script>
+  <script src="assets-data-1p5.js"></script>
+  <script src="assets-data-1p6.js"></script>
+  <script src="assets-data-1p7.js"></script>
+  <script src="assets-data-1.js"></script>
+  <script src="assets-data-2p0.js"></script>
+  <script src="assets-data-2p1.js"></script>
+  <script src="assets-data-2p2.js"></script>
+  <script src="assets-data-2p3.js"></script>
+  <script src="assets-data-2p4.js"></script>
+  <script src="assets-data-2p5.js"></script>
+  <script src="assets-data-2.js"></script>
+  <script src="assets-data-3p0.js"></script>
+  <script src="assets-data-3p1.js"></script>
+  <script src="assets-data-3p2.js"></script>
+  <script src="assets-data-3p3.js"></script>
+  <script src="assets-data-3p4.js"></script>
+  <script src="assets-data-3p5.js"></script>
+  <script src="assets-data-3p6.js"></script>
+  <script src="assets-data-3p7.js"></script>
+  <script src="assets-data-3p8.js"></script>
+  <script src="assets-data-3.js"></script>
+  <script src="assets-data-4p0.js"></script>
+  <script src="assets-data-4p1.js"></script>
+  <script src="assets-data-4p2.js"></script>
+  <script src="assets-data-4p3.js"></script>
+  <script src="assets-data-4p4.js"></script>
+  <script src="assets-data-4p5.js"></script>
+  <script src="assets-data-4p6.js"></script>
+  <script src="assets-data-4p7.js"></script>
+  <script src="assets-data-4.js"></script>
+  <script src="assets-data-5p0.js"></script>
+  <script src="assets-data-5p1.js"></script>
+  <script src="assets-data-5p2.js"></script>
+  <script src="assets-data-5p3.js"></script>
+  <script src="assets-data-5p4.js"></script>
+  <script src="assets-data-5p5.js"></script>
+  <script src="assets-data-5.js"></script>
+  <script src="assets-data-6p0.js"></script>
+  <script src="assets-data-6p1.js"></script>
+  <script src="assets-data-6p2.js"></script>
+  <script src="assets-data-6p3.js"></script>
+  <script src="assets-data-6p4.js"></script>
+  <script src="assets-data-6.js"></script>
+  <script src="assets-data-7p0.js"></script>
+  <script src="assets-data-7p1.js"></script>
+  <script src="assets-data-7p2.js"></script>
+  <script src="assets-data-7p3.js"></script>
+  <script src="assets-data-7p4.js"></script>
+  <script src="assets-data-7p5.js"></script>
+  <script src="assets-data-7.js"></script>
+  <script src="assets-data-8p0.js"></script>
+  <script src="assets-data-8p1.js"></script>
+  <script src="assets-data-8p2.js"></script>
+  <script src="assets-data-8p3.js"></script>
+  <script src="assets-data-8p4.js"></script>
+  <script src="assets-data-8p5.js"></script>
+  <script src="assets-data-8p6.js"></script>
+  <script src="assets-data-8.js"></script>
+  <script src="assets-data-9p0.js"></script>
+  <script src="assets-data-9p1.js"></script>
+  <script src="assets-data-9p2.js"></script>
+  <script src="assets-data-9p3.js"></script>
+  <script src="assets-data-9p4.js"></script>
+  <script src="assets-data-9p5.js"></script>
+  <script src="assets-data-9p6.js"></script>
+  <script src="assets-data-9.js"></script>
+  <script src="assets-data-10p0.js"></script>
+  <script src="assets-data-10p1.js"></script>
+  <script src="assets-data-10p2.js"></script>
+  <script src="assets-data-10p3.js"></script>
+  <script src="assets-data-10p4.js"></script>
+  <script src="assets-data-10p5.js"></script>
+  <script src="assets-data-10p6.js"></script>
+  <script src="assets-data-10.js"></script>
+  <script src="assets-data-11p0.js"></script>
+  <script src="assets-data-11p1.js"></script>
+  <script src="assets-data-11p2.js"></script>
+  <script src="assets-data-11p3.js"></script>
+  <script src="assets-data-11p4.js"></script>
+  <script src="assets-data-11p5.js"></script>
+  <script src="assets-data-11p6.js"></script>
+  <script src="assets-data-11p7.js"></script>
+  <script src="assets-data-11.js"></script>
+  <script src="assets-data-12p0.js"></script>
+  <script src="assets-data-12p1.js"></script>
+  <script src="assets-data-12.js"></script>
+  <script src="assets-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
