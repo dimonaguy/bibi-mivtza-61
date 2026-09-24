@@ -325,6 +325,7 @@
       }
       #protagonist { height: 25%; }
       .choice-wrapper { width: 34%; }
+      /* Keep stage sprites for atmosphere; primary interaction is mobile list */
       .choice-text { font-size: clamp(0.62rem, 2.2vw, 0.85rem); }
     }
     @media (max-width: 480px) {
@@ -341,11 +342,12 @@
         min-height: 160px;
       }
       #protagonist { height: 22%; }
+      /* Tiny overlays hard to tap — hide text bubbles on stage, rely on #mobile-choices */
       .choice-wrapper .choice-text { display: none; }
       .choice-sprite { max-height: 14vh; pointer-events: none; }
       .choice-wrapper {
         width: 28%;
-        pointer-events: none;
+        pointer-events: none; /* taps go to mobile list */
       }
       .mobile-choice-btn {
         font-size: 0.98rem;
@@ -383,3 +385,4 @@
       cursor: pointer;
     }
     #music-hint:hover { background: #1d4ed8; }
+  

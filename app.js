@@ -35,7 +35,8 @@
       return /\.(mp3|wav|ogg|m4a)(\?|$)/i.test(name);
     }
 
-    /** Resolve a JSON asset name via embedded data URLs, then assets/ with ext swap. */
+    /** Resolve a JSON asset name via embedded data URLs, then assets/ with ext swap.
+     *  Audio prefers assets/ file URLs so volume tweaks only need the mp3 on disk. */
     function resolveAsset(name) {
       if (!name) return null;
       if (resolveCache.has(name)) return resolveCache.get(name);
@@ -142,6 +143,7 @@
       const data = window.ASSET_DATA || {};
       const dataUrl = data[file] || null;
       const fileUrl = assetUrl(file);
+      // Prefer embedded data URL (works on GitHub Pages even without binary assets).
       const primary = dataUrl || fileUrl;
       const fallback = dataUrl ? fileUrl : (dataUrl || '');
       bgMusicEl.loop = true;
@@ -380,6 +382,7 @@
     }
 
     async function discoverAssets() {
+      // Optional manifest: if present, use it for extension swapping without HEAD requests.
       try {
         const res = await fetch(ASSET_DIR + 'manifest.json');
         if (res.ok) {
@@ -388,6 +391,7 @@
           return;
         }
       } catch (_) {}
+      // Without manifest, resolveAsset falls back to exact path (we also shipped jpg copies).
     }
 
     async function boot() {
@@ -415,3 +419,4 @@
     }
 
     boot();
+  
