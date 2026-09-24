@@ -1,0 +1,42 @@
+name: Import background mp3
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-mp3.yml'
+permissions:
+  contents: write
+jobs:
+  import-mp3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Download gamebackground.mp3
+        env:
+          MP3_URL: https://prepaid-zealand-backed-fans.trycloudflare.com/assets/gamebackground.mp3
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          curl -fsSL "$MP3_URL" -o assets/gamebackground.mp3
+          test -s assets/gamebackground.mp3
+          wc -c assets/gamebackground.mp3
+          # basic mp3/ID3 header check
+          python3 - <<'PY'
+          raw=open('assets/gamebackground.mp3','rb').read(3)
+          assert raw in (b'ID3', b'\xff\xfb', b'\xff\xf3', b'\xff\xf2'), raw
+          print('header ok', raw)
+          PY
+      - name: Commit mp3
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/gamebackground.mp3
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Add assets/gamebackground.mp3 for reliable background music"
+            git push origin HEAD:main
+          fi
