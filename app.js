@@ -35,8 +35,32 @@
       return /\.(mp3|wav|ogg|m4a)(\?|$)/i.test(name);
     }
 
-    /** Resolve a JSON asset name via embedded data URLs, then assets/ with ext swap.
-     *  Audio prefers assets/ file URLs so volume tweaks only need the mp3 on disk. */
+    const objectUrlCache = new Map();
+
+    /** Large data: URLs often fail in <audio>/Audio(); Blob object URLs work reliably. */
+    function toPlayableUrl(url) {
+      if (!url || typeof url !== 'string') return url;
+      if (!url.startsWith('data:')) return url;
+      if (objectUrlCache.has(url)) return objectUrlCache.get(url);
+      try {
+        const comma = url.indexOf(',');
+        if (comma < 0) return url;
+        const header = url.slice(0, comma);
+        const b64 = url.slice(comma + 1);
+        const mimeMatch = header.match(/^data:([^;,]+)/);
+        const mime = mimeMatch ? mimeMatch[1] : 'audio/mpeg';
+        const binary = atob(b64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const obj = URL.createObjectURL(new Blob([bytes], { type: mime }));
+        objectUrlCache.set(url, obj);
+        return obj;
+      } catch (_) {
+        return url;
+      }
+    }
+
+    /** Resolve a JSON asset name via embedded data URLs, then assets/ with ext swap. */
     function resolveAsset(name) {
       if (!name) return null;
       if (resolveCache.has(name)) return resolveCache.get(name);
@@ -62,8 +86,9 @@
         for (const cand of candidates) {
           const embedded = fromData(cand);
           if (embedded) {
-            resolveCache.set(name, embedded);
-            return embedded;
+            const playable = toPlayableUrl(embedded);
+            resolveCache.set(name, playable);
+            return playable;
           }
         }
         for (const cand of candidates) {
@@ -143,12 +168,14 @@
       const data = window.ASSET_DATA || {};
       const dataUrl = data[file] || null;
       const fileUrl = assetUrl(file);
-      // Prefer embedded data URL (works on GitHub Pages even without binary assets).
-      const primary = dataUrl || fileUrl;
-      const fallback = dataUrl ? fileUrl : (dataUrl || '');
+      const blobUrl = dataUrl ? toPlayableUrl(dataUrl) : null;
+      // Prefer Blob from embedded data (works on Pages without binary assets/).
+      // Fall back to assets/*.mp3 when the file is present on the host.
+      let primary = blobUrl || fileUrl;
+      let fallback = (blobUrl && fileUrl !== primary) ? fileUrl : '';
       bgMusicEl.loop = true;
       bgMusicEl.volume = 0.9;
-      bgMusicEl.dataset.fallback = (fallback && fallback !== primary) ? fallback : '';
+      bgMusicEl.dataset.fallback = fallback || '';
       if (bgMusicEl.getAttribute('data-src-ready') !== primary) {
         bgMusicEl.src = primary;
         bgMusicEl.setAttribute('data-src-ready', primary);
@@ -166,19 +193,29 @@
         return;
       }
       const markStarted = () => { bgMusicStarted = true; hideMusicHint(); };
+      const tryFallback = () => {
+        const fb = bgMusicEl.dataset.fallback;
+        if (!fb) return Promise.reject();
+        bgMusicEl.src = fb;
+        bgMusicEl.setAttribute('data-src-ready', fb);
+        try { bgMusicEl.load(); } catch (_) {}
+        return bgMusicEl.play();
+      };
       const attempt = () => {
         const p = bgMusicEl.play();
         if (p && typeof p.then === 'function') {
           p.then(markStarted).catch(() => {
-            const fb = bgMusicEl.dataset.fallback;
-            if (fb && bgMusicEl.src !== fb) {
-              bgMusicEl.src = fb;
-              try { bgMusicEl.load(); } catch (_) {}
-              bgMusicEl.play().then(markStarted).catch(() => {});
-            }
+            tryFallback().then(markStarted).catch(() => {});
           });
         }
       };
+      // If the preferred file 404s, switch before/while playing.
+      const onErr = () => {
+        if (bgMusicStarted) return;
+        tryFallback().then(markStarted).catch(() => {});
+      };
+      bgMusicEl.removeEventListener('error', onErr);
+      bgMusicEl.addEventListener('error', onErr, { once: true });
       attempt();
     }
 
