@@ -1,0 +1,294 @@
+{
+  "gameSettings": {
+    "title": "ביבי: מבצע 61",
+    "creator": "By Netanel Hasson",
+    "background_audio": "gamebackground.mp3",
+    "protagonist_image": "ביבי.png",
+    "protagonist_audio": "אזרחי ישראל.mp3",
+    "initialState": {
+      "mandates": 59,
+      "us_relations": 50,
+      "likud_stability": 80,
+      "coalition_stability": 50
+    }
+  },
+  "nodes": {
+    "node_001_start": {
+      "id": "node_001_start",
+      "title": "יריית הפתיחה",
+      "description": "קיבלת את המנדט להרכבת הממשלה. מולך שלוש אפשרויות אסטרטגיות מרכזיות, אך כל אחת מהן גובה מחיר משותפים אחרים.",
+      "options": [
+        {
+          "label": "ממשלת ימין על-מלא: לחתום עם האגף הלאומני והחרדים בלבד.",
+          "targetNode": "node_002_full_right",
+          "overlay_image": "קבוצה לאומנים.png",
+          "hover_audio": "לאומנים.mp3",
+          "stateModifiers": { "mandates": 5, "us_relations": -15, "likud_stability": -10 }
+        },
+        {
+          "label": "לשבור למרכז: להזמין את הגנרלים לבלפור ולהציע ממשלת אחדות ממלכתית.",
+          "targetNode": "node_002_center",
+          "overlay_image": "קבוצה מילואימניקים.png",
+          "hover_audio": "מילואימניקים.mp3",
+          "stateModifiers": { "mandates": 8, "us_relations": 20, "likud_stability": -20 }
+        },
+        {
+          "label": "תמרון ההפרדה: להזמין את עופר וינטר בלבד בארבע עיניים, במטרה לפצל אותו מהגנרלים.",
+          "targetNode": "node_002_winter",
+          "overlay_image": "עופר וינטר.png",
+          "hover_audio": "וינטר.mp3",
+          "stateModifiers": { "mandates": 2, "coalition_stability": -5 }
+        }
+      ]
+    },
+    
+    "node_002_full_right": {
+      "id": "node_002_full_right",
+      "title": "מלכודת הבייס",
+      "description": "הקמת ממשלת ימין מלאה. כעת, האגף הלאומני דורש לקדם סיפוח, בעוד שהחרדים מציבים אולטימטום לפטור מגיוס.",
+      "options": [
+        {
+          "label": "היכנע לחרדים: העבר את חוק הפטור מגיוס באופן מיידי בקריאה שלישית.",
+          "targetNode": "node_ending_bagatz_draft",
+          "overlay_image": "קבוצה חרדים.png",
+          "hover_audio": "חרדים.mp3",
+          "stateModifiers": { "coalition_stability": 20, "us_relations": 0, "likud_stability": -20 }
+        },
+        {
+          "label": "רצה את הלאומנים: עכב את חוק הגיוס, אבל פצה את הימין עם החלת ריבונות ביו\"ש.",
+          "targetNode": "node_ending_washington_crisis",
+          "overlay_image": "קבוצה לאומנים.png",
+          "hover_audio": "לאומנים.mp3",
+          "stateModifiers": { "us_relations": -40, "coalition_stability": -10, "likud_stability": 10 }
+        },
+        {
+          "label": "שיטת הסלאמי: נסה להקים 'ועדות פשרה' כדי למרוח את הזמן.",
+          "targetNode": "node_ending_haredi_quit",
+          "overlay_image": "שעון חול.jpg",
+          "hover_audio": null,
+          "stateModifiers": { "mandates": -7, "coalition_stability": -30 }
+        }
+      ]
+    },
+
+    "node_002_center": {
+      "id": "node_002_center",
+      "title": "חיבוק הדוב הממלכתי",
+      "description": "הגנרלים נכנסו למו\"מ ודורשים חוק שוויון בנטל וקבינט מקצועי נטול קיצוניים.",
+      "options": [
+        {
+          "label": "אחדות מלאה: הסכם עם הגנרלים וסלק את הלאומנים.",
+          "targetNode": "node_ending_right_protest",
+          "overlay_image": "קבוצה מילואימניקים.png",
+          "hover_audio": "מילואימניקים.mp3",
+          "stateModifiers": { "mandates": 3, "us_relations": 30, "likud_stability": -40, "coalition_stability": -20 }
+        },
+        {
+          "label": "התרגיל: חתום עם הגנרלים, אבל השאר את הלאומנים בפנים באמצעות קבינט צללים.",
+          "targetNode": "node_ending_mass_protest",
+          "overlay_image": "קבוצה לאומנים.png",
+          "hover_audio": "לאומנים.mp3",
+          "stateModifiers": { "us_relations": -10, "likud_stability": -5, "coalition_stability": -35 }
+        },
+        {
+          "label": "פיצוץ השיחות: פנה ל'סוס השחור' ב-2 בלילה בניסיון להציל את המצב.",
+          "targetNode": "node_003_dark_horse",
+          "overlay_image": "קבוצה סוס שחור.png",
+          "hover_audio": null,
+          "stateModifiers": { "mandates": -2, "coalition_stability": 10 }
+        }
+      ]
+    },
+
+    "node_002_winter": {
+      "id": "node_002_winter",
+      "title": "המוקש הפרסונלי",
+      "description": "וינטר מוכן להצטרף אך דורש סמכויות ביטחון נרחבות שיפקיעו כוח מהאגף הלאומני.",
+      "options": [
+        {
+          "label": "תן לווינטר את משרד הביטחון בגלוי.",
+          "targetNode": "node_003_smotrich_revenge",
+          "overlay_image": "עופר וינטר.png",
+          "hover_audio": "וינטר.mp3",
+          "stateModifiers": { "coalition_stability": -20, "likud_stability": -10 }
+        },
+        {
+          "label": "ההבטחה הכפולה: הבטח סמכויות בסתר והכחש בפומבי.",
+          "targetNode": "node_003_draft_crisis",
+          "overlay_image": "לחיצת יד.jpg",
+          "hover_audio": null,
+          "stateModifiers": { "coalition_stability": -10 }
+        }
+      ]
+    },
+
+    "node_003_dark_horse": {
+      "id": "node_003_dark_horse",
+      "title": "דילמות של 2 בלילה",
+      "description": "הסוס השחור (ליברמן/בנט) דורש רוטציה בראשות הממשלה ואת תיק האוצר.",
+      "options": [
+        {
+          "label": "אין ברירה, לחתום על הסכם הרוטציה המשולש.",
+          "targetNode": "node_ending_rotation",
+          "overlay_image": "קבוצה סוס שחור.png",
+          "hover_audio": null,
+          "stateModifiers": { "mandates": 10, "likud_stability": -15, "coalition_stability": 5 }
+        },
+        {
+          "label": "לפוצץ את הכל: להדליף לתקשורת את הדרישות הסחטניות כדי ללכת לבחירות.",
+          "targetNode": "node_ending_elections",
+          "overlay_image": "קלפי.jpg",
+          "hover_audio": null,
+          "stateModifiers": { "mandates": -15, "coalition_stability": -50 }
+        }
+      ]
+    },
+
+    "node_003_smotrich_revenge": {
+      "id": "node_003_smotrich_revenge",
+      "title": "נקמת הלאומנים",
+      "description": "האגף הלאומני רותח על קידומו של וינטר. הם מאיימים להפיל את הממשלה אם לא יקבלו סמכויות דומות.",
+      "options": [
+        {
+          "label": "כניעה: תן להם סמכויות אזרחיות מלאות ביהודה ושומרון.",
+          "targetNode": "node_ending_washington_crisis",
+          "overlay_image": "קבוצה לאומנים.png",
+          "hover_audio": "לאומנים.mp3",
+          "stateModifiers": { "us_relations": -35, "likud_stability": 5 }
+        },
+        {
+          "label": "עימות: פטר אותם ונסה לנהל ממשלת מיעוט זמנית בתקווה למשוך עריקים.",
+          "targetNode": "node_ending_bagatz_minority",
+          "overlay_image": "בגץ.png",
+          "hover_audio": null,
+          "stateModifiers": { "mandates": -5, "coalition_stability": -40 }
+        }
+      ]
+    },
+
+    "node_003_draft_crisis": {
+      "id": "node_003_draft_crisis",
+      "title": "קריסת האמון",
+      "description": "האמון התרסק. החרדים דורשים העברת חוק גיוס היום בלילה, אחרת הם בחוץ.",
+      "options": [
+        {
+          "label": "להיכנע ולהעביר את החוק עכשיו במליאה.",
+          "targetNode": "node_ending_bagatz_draft",
+          "overlay_image": "קבוצה חרדים.png",
+          "hover_audio": "חרדים.mp3",
+          "stateModifiers": { "us_relations": -5, "coalition_stability": 10 }
+        },
+        {
+          "label": "להשתמש בתירוץ המשפטי: להודיע לחרדים שהיועמ\"שית עוצרת הכל.",
+          "targetNode": "node_004_final_night",
+          "overlay_image": "פטיש שופט.jpg",
+          "hover_audio": null,
+          "stateModifiers": { "likud_stability": -10, "coalition_stability": -15 }
+        }
+      ]
+    },
+
+    "node_004_final_night": {
+      "id": "node_004_final_night",
+      "title": "מרד בליכוד",
+      "description": "ליל ההשבעה. ישראל כץ זועם על חלוקת התיקים ומודיע שלא יצביע בעד הממשלה.",
+      "options": [
+        {
+          "label": "שלם את המחיר: הענק לכץ את משרד החוץ המורחב כדי לקנות את שתיקתו.",
+          "targetNode": "node_ending_katz_fm",
+          "overlay_image": "ישראל כץ.png",
+          "hover_audio": "katz_2.mp3",
+          "stateModifiers": { "mandates": 1, "likud_stability": 25, "coalition_stability": 5 }
+        },
+        {
+          "label": "הפעל כוח: הפנה את פעילי המפלגה נגד כץ ואיים עליו בחיסול פוליטי.",
+          "targetNode": "node_ending_likud_civil_war",
+          "overlay_image": "הפגנה.png",
+          "hover_audio": null,
+          "stateModifiers": { "likud_stability": -35, "coalition_stability": -10 }
+        }
+      ]
+    },
+
+    "node_ending_bagatz_draft": {
+      "id": "node_ending_bagatz_draft",
+      "title": "סוף: פסילת בג\"ץ",
+      "description": "העברת את חוק הפטור מגיוס. למחרת בג\"ץ מוציא צו ביניים שפוסל את החוק. החרדים פורשים והממשלה קורסת.",
+      "overlay_image": "בגץ.png",
+      "options": []
+    },
+
+    "node_ending_washington_crisis": {
+      "id": "node_ending_washington_crisis",
+      "title": "סוף: משבר בינלאומי",
+      "description": "הענקת סמכויות ריבונות ביו\"ש. וושינגטון זועמת ומקפיאה חימוש. הקואליציה שורדת, אבל המדינה בבידוד מדיני.",
+      "overlay_image": "טלפון וושינגטון.png",
+      "end_audio": "phone.mp3",
+      "options": []
+    },
+
+    "node_ending_mass_protest": {
+      "id": "node_ending_mass_protest",
+      "title": "סוף: המדינה בוערת",
+      "description": "התרגיל עם הגנרלים התפוצץ. מאות אלפי אזרחים זועמים חוסמים את איילון והלחץ האזרחי משתק את המדינה.",
+      "overlay_image": "הפגנה.png",
+      "options": []
+    },
+
+    "node_ending_right_protest": {
+      "id": "node_ending_right_protest",
+      "title": "סוף: זעם הבייס",
+      "description": "הבייס הימני מרגיש נבגד משיתוף הפעולה עם הגנרלים, שורף צמיגים ומפעיל לחץ כבד לעריקות. הממשלה בקושי מתפקדת.",
+      "overlay_image": "הפגנה.png",
+      "options": []
+    },
+
+    "node_ending_bagatz_minority": {
+      "id": "node_ending_bagatz_minority",
+      "title": "סוף: התערבות משפטית",
+      "description": "בג\"ץ פוסק כי ממשלת המיעוט שניסית להקים אינה רשאית לתפקד. אתה נאלץ להכריז על בחירות.",
+      "overlay_image": "בגץ.png",
+      "options": []
+    },
+
+    "node_ending_likud_civil_war": {
+      "id": "node_ending_likud_civil_war",
+      "title": "סוף: מלחמת אחים בליכוד",
+      "description": "המתקפה על כץ קרעה את הליכוד לשניים. הפעילים יצאו לרחובות ואין לך קואליציה יציבה להישען עליה.",
+      "overlay_image": "הפגנה.png",
+      "options": []
+    },
+
+    "node_ending_haredi_quit": {
+      "id": "node_ending_haredi_quit",
+      "title": "סוף: החרדים נוטשים",
+      "description": "שיטת מריחת הזמן לא עבדה. מועצת גדולי התורה הורתה לשרים החרדים להתפטר. איבדת את הרוב.",
+      "overlay_image": "קבוצה חרדים.png",
+      "options": []
+    },
+
+    "node_ending_rotation": {
+      "id": "node_ending_rotation",
+      "title": "סוף: ממשלת הרוטציה המשותקת",
+      "description": "חתמתם על הסכם רוטציה מסובך. למרות שיש ממשלה, איש לא סומך על איש והמערכת הממשלתית קפואה לחלוטין.",
+      "overlay_image": "קבוצה סוס שחור.png",
+      "options": []
+    },
+
+    "node_ending_elections": {
+      "id": "node_ending_elections",
+      "title": "סוף: חוזרים לקלפיות",
+      "description": "28 הימים עברו ואיש לא הצליח להרכיב ממשלה. הכנסת מתפזרת שוב למערכת בחירות מתישה.",
+      "overlay_image": "קלפי.jpg",
+      "options": []
+    },
+
+    "node_ending_katz_fm": {
+      "id": "node_ending_katz_fm",
+      "title": "סוף: השליט הנצחי",
+      "description": "נכנעת לישראל כץ. הקמת ממשלת 61 שברירית אך מתפקדת. שוב חמקת מהתהום, ואתה נשאר בבלפור.",
+      "overlay_image": "ישראל כץ.png",
+      "options": []
+    }
+  }
+}
